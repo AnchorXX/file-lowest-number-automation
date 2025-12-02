@@ -19,15 +19,18 @@ input_filename = sys.argv[1]
 output_filename = sys.argv[2]
 
 number_found = False
-
-with open(input_filename, 'r') as input_file:
+with open(input_filename) as input_file:
     for line in input_file:
+        # Remove whitespace/newline
+        line = line.strip()
+
+        # Skip completely blank lines
+        if line == "":
+            continue
+
         if number_found == False:
-            try:
-                lowest_number = float(line)
-                number_found = True
-            except ValueError:
-                break
+            lowest_number = float(line)
+            number_found = True
         else:
             if float(line) < lowest_number:
                 lowest_number = float(line)
